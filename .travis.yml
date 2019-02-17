@@ -9,14 +9,14 @@ script:
   - docker run davycode/react-test npm run test -- --coverage
 
 after_success:
-  - docker build -t $DOCKER_REGISTRY/davycode/complex-docker-client ./client
-  - docker build -t $DOCKER_REGISTRY/davycode/complex-docker-api ./server
-  - docker build -t $DOCKER_REGISTRY/davycode/complex-docker-worker ./worker
-  - docker build -t $DOCKER_REGISTRY/davycode/complex-docker-nginx ./nginx
+  - docker build -t registry.gitlab.com/davycode/complex-docker-client ./client
+  - docker build -t registry.gitlab.com/davycode/complex-docker-api ./server
+  - docker build -t registry.gitlab.com/davycode/complex-docker-worker ./worker
+  - docker build -t registry.gitlab.com/davycode/complex-docker-nginx ./nginx
 # setup env to docker image registry
-  - echo "$REGISTRY_PASSWORD" | docker login "$DOCKER_REGISTRY" -u "$REGISTRY_USER" --password-stdin
+  - echo "$REGISTRY_PASSWORD" | docker login "registry.gitlab.com" -u "$REGISTRY_USER" --password-stdin
 # push images to docker image registry
-  - docker push $DOCKER_REGISTRY/davycode/complex-docker-client
-  - docker push $DOCKER_REGISTRY/davycode/complex-docker-api
-  - docker push $DOCKER_REGISTRY/davycode/complex-docker-worker
-  - docker push $DOCKER_REGISTRY/davycode/complex-docker-nginx
+  - docker push registry.gitlab.com/davycode/complex-docker-client
+  - docker push registry.gitlab.com/davycode/complex-docker-api
+  - docker push registry.gitlab.com/davycode/complex-docker-worker
+  - docker push registry.gitlab.com/davycode/complex-docker-nginx
